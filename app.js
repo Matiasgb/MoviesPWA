@@ -1,36 +1,3 @@
-console.log("hello")
-let deferredPrompt;
-
-window.addEventListener('beforeinstallprompt', (e) => {
-
-  e.preventDefault();
- 
-  deferredPrompt = e;
-
-  console.log(`'beforeinstallprompt' event was fired.`);
-});
-
-let buttonInstall = document.querySelector(".install")
-buttonInstall.addEventListener('click', async () => {
-   
-    deferredPrompt.prompt();
-
-    const { outcome } = await deferredPrompt.userChoice;
-   
-    console.log(`User response to the install prompt: ${outcome}`);
-    
-    deferredPrompt = null;
-  });
-
-
-
-
-
-
-
-
-
-
 
 
 const apiPoster = '3120765513dbb51e78ab31ec3ec16ba9'
@@ -63,11 +30,14 @@ const resultsBox = document.querySelector(".results-box")
 const noSearchMade = document.querySelector(".no-search")
 
 
+let currentMovie ;
+
+
 if (localStorage.getItem("search") !== null ) {
     noSearchMade.classList.add("d-none");
     var lastSearch = localStorage.getItem("search");
    var cleanJson = JSON.parse(lastSearch)
-    console.log(cleanJson)
+
     
     let MovieMain = ElementFromHtml(`
         <div class="data d-flex justify-content-between">
@@ -118,13 +88,13 @@ if (localStorage.getItem("search") !== null ) {
 
         resultsBox.append(MovieMain,movieSecondary)
   } else if (localStorage.getItem("search") == null) {
-    console.log("do nothing")
+   
   }
 
 
 
 
-// DOBLE PROMESA
+// DOBLE PROMESA ??
 
     async function basicPromiseAll(query) {
         try {
@@ -132,8 +102,9 @@ if (localStorage.getItem("search") !== null ) {
             fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiPoster}&query="${query}"`).then(result => result.json()),
             fetch(`https://www.omdbapi.com/?apikey=${API}&t=${query}`).then(result => result.json()),
           ]);
-          console.log(data1)
-          console.log(data2)
+          //console.log(data1)
+          //console.log(data2)
+          currentMovie = data2;
           return [data1, data2];
         } catch (err) {
           console.log(err);
@@ -143,13 +114,13 @@ if (localStorage.getItem("search") !== null ) {
 
       //fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiPoster}&query="${query}"`).then(result => result.json()),
 
-      // En el click del boton
+   
 btn.addEventListener('click', function () {
-    
+ 
 noSearchMade.classList.add("d-none")
 
 const resultado = basicPromiseAll(input.value);
-    //const resultado = hardPromiseAll();
+
   
     resultado.then(function(value){
         localStorage.setItem("search", JSON.stringify(value[1]));
@@ -252,4 +223,72 @@ function ElementFromHtml(html) {
 
     return template.content.firstElementChild;
 }
+
+
+
+// INTALL PROMPT 
+
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+
+  e.preventDefault();
+ 
+  deferredPrompt = e;
+
+
+});
+
+let buttonInstall = document.querySelector(".install")
+buttonInstall.addEventListener('click', async () => {
+   
+    deferredPrompt.prompt();
+
+    const { outcome } = await deferredPrompt.userChoice;
+   
+    
+    deferredPrompt = null;
+  });
+
+
+  
+  var db = new Dexie('favorites');
+
+// Obtengo ciertos elementos del DOM que voy a usar
+
+var favoritesBtn = document.querySelector('.favorite-btn');
+var favorites = document.querySelector('.favorites-container');
+
+// defino la version de la base (podria tener varias)
+// defino que parte de eso va a ser "indexada" (en este caso 'id')
+db.version(2).stores({ favorite: 'id, title, plot' });
+
+// Abro la Base y ejecuto la funcion "refreshView"
+
+function refreshView() {
+  // devolve la DB como Array, con el metodo propio de Dexie toArray
+  return db.favorite.toArray()
+    .then(favorites => { // Y ejecuta esta funcion:
+        var html = '';
+
+      favorites.forEach(function (favorite) {
+        html+= `<p>
+                  <button id="${favorite.id}" class="btn btn-link bi bi-trash"></button>
+                  ${favorite.title}</p>`;
+      });
+      console.log(html)
+      
+      
+  });
+}
+
+// En el click del boton
+favoritesBtn.addEventListener('click', function () {
+    console.log(currentMovie)
+  db.favorite.put({
+    title: currentMovie.Title,
+    plot: currentMovie.Plot, // Agrego el valor que haya en el input a la IndexedDB
+    id: String(Date.now()) // uso como ID la fecha actual, convertida en STRING
+  })
+});
 
