@@ -30,7 +30,7 @@ const resultsBox = document.querySelector(".results-box")
 const noSearchMade = document.querySelector(".no-search")
 
 
-if (localStorage.getItem("search") !== null) {
+if (localStorage.getItem("search") !== null ) {
     noSearchMade.classList.add("d-none");
     var lastSearch = localStorage.getItem("search");
    var cleanJson = JSON.parse(lastSearch)
@@ -84,8 +84,8 @@ if (localStorage.getItem("search") !== null) {
     </div>`)
 
         resultsBox.append(MovieMain,movieSecondary)
-  } else {
-    
+  } else if (localStorage.getItem("search") == null) {
+    console.log("do nothing")
   }
 
 
