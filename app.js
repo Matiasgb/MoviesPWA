@@ -30,7 +30,7 @@ const resultsBox = document.querySelector(".results-box")
 const noSearchMade = document.querySelector(".no-search")
 
 
-if (localStorage.getItem("search") !== undefined ) {
+if (localStorage.getItem("search") !== null ) {
     noSearchMade.classList.add("d-none");
     var lastSearch = localStorage.getItem("search");
    var cleanJson = JSON.parse(lastSearch)
