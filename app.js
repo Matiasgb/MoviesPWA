@@ -13,7 +13,7 @@ http://img.omdbapi.com/?apikey=[yourkey]&
 */
 var favoritesBtn = document.createElement("button");
 
-favoritesBtn.classList.add("my-3", "favorite-btn", "btn", "btn-danger", "m-auto");
+favoritesBtn.classList.add("my-3", "favorite-btn", "btn", "btn-danger", "m-auto", "w-50");
 favoritesBtn.innerHTML = "Add to Favorites list"
 console.log(favoritesBtn)
 
