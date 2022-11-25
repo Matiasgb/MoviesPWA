@@ -97,7 +97,7 @@ if (localStorage.getItem("search") !== null) {
         try {
           const [data1, data2] = await Promise.all([
             fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiPoster}&query="${query}"`).then(result => result.json()),
-            fetch(`http://www.omdbapi.com/?apikey=${API}&t=${query}`).then(result => result.json()),
+            fetch(`https://www.omdbapi.com/?apikey=${API}&t=${query}`).then(result => result.json()),
           ]);
           console.log(data1)
           console.log(data2)
