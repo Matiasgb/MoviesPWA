@@ -11,7 +11,16 @@ http://www.omdbapi.com/?apikey=[yourkey]&
 Poster API requests:
 http://img.omdbapi.com/?apikey=[yourkey]&
 */
-var favoritesBtn = document.querySelector('.favorite-btn');
+var favoritesBtn = document.createElement("button");
+
+favoritesBtn.classList.add("my-3", "favorite-btn", "btn", "btn-danger", "m-auto");
+favoritesBtn.innerHTML = "Add to Favorites list"
+console.log(favoritesBtn)
+
+
+
+
+
 const btn = document.querySelector(".search-btn");
 const input = document.querySelector(".search-input");
 var results = document.getElementById('results');
@@ -83,11 +92,12 @@ if (localStorage.getItem("search") !== null ) {
                     Actors: <span class="actors"> ${cleanJson.Actors}</span>
                 </p>
             </div>
-            <button class="my-3 favorite-btn btn btn-danger m-auto">Add to Favorites list</button>
+       
         </div>
     </div>`)
 
         resultsBox.append(MovieMain,movieSecondary)
+        movieSecondary.append(favoritesBtn);
   } else if (localStorage.getItem("search") == null) {
    
   }
@@ -174,12 +184,12 @@ const resultado = basicPromiseAll(input.value);
                     Actors: <span class="actors"> ${value[1].Actors}</span>
                 </p>
             </div>
-            <button class="favorite-btn btn btn-danger my-3 m-auto">Add to Favorites list</button>
+        
         </div>
     </div>`)
 
         resultsBox.append(MovieMain,movieSecondary)
-        
+        movieSecondary.append(favoritesBtn);
     })
   });
   
