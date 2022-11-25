@@ -46,9 +46,9 @@ var db = new Dexie("favorites");
 
 
   function refreshView() {
-    // devolve la DB como Array, con el metodo propio de Dexie toArray
+   
     return db.table('favorite').toArray()
-      .then(favorites => { // Y ejecuta esta funcion:
+      .then(favorites => { 
           var html = '';
   
         favorites.forEach(function (favorite) {

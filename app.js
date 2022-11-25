@@ -11,7 +11,7 @@ http://www.omdbapi.com/?apikey=[yourkey]&
 Poster API requests:
 http://img.omdbapi.com/?apikey=[yourkey]&
 */
-
+var favoritesBtn = document.querySelector('.favorite-btn');
 const btn = document.querySelector(".search-btn");
 const input = document.querySelector(".search-input");
 var results = document.getElementById('results');
@@ -51,8 +51,8 @@ if (localStorage.getItem("search") !== null ) {
         </div>
         
         <div class="movie-rating">
-            <p class="imdb h5 text-right"><img src="img/imdb.png" class="w-50 pr-4">${cleanJson.imdbRating}/10</p>
-            <p class="rotten h5 text-right"><img src="img/rotten.png" class="w-50 pr-4">${cleanJson.Ratings[1].Value}</p>
+            <p class="imdb h5 text-end"><img src="img/imdb.png" class="w-50 px-3">${cleanJson.imdbRating}/10</p>
+            <p class="rotten h5 text-end"><img src="img/rotten.png" class="w-50 px-3">${cleanJson.Ratings[1].Value}</p>
         </div>
         </div>
        
@@ -83,6 +83,7 @@ if (localStorage.getItem("search") !== null ) {
                     Actors: <span class="actors"> ${cleanJson.Actors}</span>
                 </p>
             </div>
+            <button class="my-3 favorite-btn btn btn-danger m-auto">Add to Favorites list</button>
         </div>
     </div>`)
 
@@ -116,7 +117,8 @@ if (localStorage.getItem("search") !== null ) {
 
    
 btn.addEventListener('click', function () {
- 
+    resultsBox.innerHTML = ''
+
 noSearchMade.classList.add("d-none")
 
 const resultado = basicPromiseAll(input.value);
@@ -138,8 +140,8 @@ const resultado = basicPromiseAll(input.value);
         </div>
         
         <div class="movie-rating">
-            <p class="imdb h5 text-right"><img src="img/imdb.png" class="w-50 pr-4">${value[1].imdbRating}/10</p>
-            <p class="rotten h5 text-right"><img src="img/rotten.png" class="w-50 pr-4">${value[1].Ratings[1].Value}</p>
+            <p class="imdb h5 text-end"><img src="img/imdb.png" class="w-50 px-3">${value[1].imdbRating}/10</p>
+            <p class="rotten h5 text-end"><img src="img/rotten.png" class="w-50 px-3">${value[1].Ratings[1].Value}</p>
         </div>
         </div>
        
@@ -148,6 +150,7 @@ const resultado = basicPromiseAll(input.value);
         const movieSecondary = ElementFromHtml(` <div class="movie-info row">
         <div class="col-lg-4">
             <img src="${value[1].Poster}" alt="${value[1].Title}" class="w-100 poster-img img-fluid m-auto d-block">
+            
         </div>
 
         <div class="movie-genres col-lg-8">
@@ -171,6 +174,7 @@ const resultado = basicPromiseAll(input.value);
                     Actors: <span class="actors"> ${value[1].Actors}</span>
                 </p>
             </div>
+            <button class="favorite-btn btn btn-danger my-3 m-auto">Add to Favorites list</button>
         </div>
     </div>`)
 
@@ -187,21 +191,21 @@ const resultado = basicPromiseAll(input.value);
 
 
 
-var estado = document.getElementById('estado');
+var estado = document.querySelector('.on-off');
 
 // Escucho a ver si el usuario se desconecta
 window.addEventListener('offline', event =>{
     console.log('usuario esta desconectado', event);
-    estado.innerHTML = 'usuario esta desconectado!';
+    estado.style.display = 'flex';
 });
 
 // Escucho a ver si el usuario se conecta nuevamente
 window.addEventListener('online', event =>{
     console.log('usuario esta conectado!! ALEGRIA!', event);
-    estado.innerHTML = 'usuario esta conectado!';
+    estado.style.display = 'none';
 });
 
-// Chequeo si tiene conexion al momento de carga
+
 if( !navigator.onLine ){
     console.log('estoy sin conexion pero en el momento de carga!!');
 }
@@ -256,7 +260,7 @@ buttonInstall.addEventListener('click', async () => {
 
 // Obtengo ciertos elementos del DOM que voy a usar
 
-var favoritesBtn = document.querySelector('.favorite-btn');
+
 var favorites = document.querySelector('.favorites-container');
 
 // defino la version de la base (podria tener varias)

@@ -43,3 +43,13 @@ input {
     bottom: 10px;
 width: 50px;
 height: 50px;}
+
+
+.on-off  {
+    position: absolute;
+    display: none;
+    top: 202px;
+   left: 50%;
+   text-align: center;
+transform: translate(-50%, 0);
+}
