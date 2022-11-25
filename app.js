@@ -193,13 +193,13 @@ const resultado = basicPromiseAll(input.value);
 
 var estado = document.querySelector('.on-off');
 
-// Escucho a ver si el usuario se desconecta
+
 window.addEventListener('offline', event =>{
     console.log('usuario esta desconectado', event);
     estado.style.display = 'flex';
 });
 
-// Escucho a ver si el usuario se conecta nuevamente
+
 window.addEventListener('online', event =>{
     console.log('usuario esta conectado!! ALEGRIA!', event);
     estado.style.display = 'none';
