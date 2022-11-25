@@ -2,27 +2,23 @@ console.log("hello")
 let deferredPrompt;
 
 window.addEventListener('beforeinstallprompt', (e) => {
-  // Previene a la mini barra de información que aparezca en smartphones
-  e.preventDefault();
-  // Guarda el evento para que se dispare más tarde
-  deferredPrompt = e;
-  // Actualizar la IU para notificarle al usuario que se puede instalar tu PWA
 
-  // De manera opcional, envía el evento de analíticos para saber si se mostró la promoción a a instalación del PWA
+  e.preventDefault();
+ 
+  deferredPrompt = e;
+
   console.log(`'beforeinstallprompt' event was fired.`);
 });
 
 let buttonInstall = document.querySelector(".install")
 buttonInstall.addEventListener('click', async () => {
-    // Esconde la información promotora de la instalación
-
-    // Muestre el mensaje de instalación
+   
     deferredPrompt.prompt();
-    // Espera a que el usuario responda al mensaje
+
     const { outcome } = await deferredPrompt.userChoice;
-    // De manera opcional, envía analíticos del resultado que eligió el usuario
+   
     console.log(`User response to the install prompt: ${outcome}`);
-    // Como ya usamos el mensaje, no lo podemos usar de nuevo, este es descartado
+    
     deferredPrompt = null;
   });
 
@@ -85,8 +81,8 @@ if (localStorage.getItem("search") !== null ) {
         </div>
         
         <div class="movie-rating">
-            <p class="imdb">${cleanJson.imdbRating}</p>
-            <p class="rotten">${cleanJson.Ratings[1].Value}</p>
+            <p class="imdb h5 text-right"><img src="img/imdb.png" class="w-50 pr-4">${cleanJson.imdbRating}/10</p>
+            <p class="rotten h5 text-right"><img src="img/rotten.png" class="w-50 pr-4">${cleanJson.Ratings[1].Value}</p>
         </div>
         </div>
        
@@ -94,13 +90,13 @@ if (localStorage.getItem("search") !== null ) {
 
         const movieSecondary = ElementFromHtml(` <div class="movie-info row">
         <div class="col-lg-4">
-            <img src="${cleanJson.Poster}" alt="${cleanJson.Title}" class="poster-img img-fluid m-auto d-block">
+            <img src="${cleanJson.Poster}" alt="${cleanJson.Title}" class="poster-img img-fluid m-auto d-block w-100">
         </div>
         <div class="movie-genres col-lg-8">
             <ul class="movie-tags">
                 <li></li>
             </ul>
-            <div class="movie-description">
+            <div class="movie-description h5">
                 <p class="plot">
                     ${cleanJson.Plot}
                 </p>
@@ -171,8 +167,8 @@ const resultado = basicPromiseAll(input.value);
         </div>
         
         <div class="movie-rating">
-            <p class="imdb">${value[1].imdbRating}</p>
-            <p class="rotten">${value[1].Ratings[1].Value}</p>
+            <p class="imdb h5 text-right"><img src="img/imdb.png" class="w-50 pr-4">${value[1].imdbRating}/10</p>
+            <p class="rotten h5 text-right"><img src="img/rotten.png" class="w-50 pr-4">${value[1].Ratings[1].Value}</p>
         </div>
         </div>
        
@@ -180,14 +176,14 @@ const resultado = basicPromiseAll(input.value);
 
         const movieSecondary = ElementFromHtml(` <div class="movie-info row">
         <div class="col-lg-4">
-            <img src="${value[1].Poster}" alt="${value[1].Title}" class="poster-img img-fluid m-auto d-block">
+            <img src="${value[1].Poster}" alt="${value[1].Title}" class="w-100 poster-img img-fluid m-auto d-block">
         </div>
 
         <div class="movie-genres col-lg-8">
             <ul class="movie-tags">
                 <li></li>
             </ul>
-            <div class="movie-description">
+            <div class="movie-description h5">
                 <p class="plot">
                     ${value[1].Plot}
                 </p>

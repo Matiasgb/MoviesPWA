@@ -12,7 +12,7 @@
     <title>Movies PWA</title>
 </head>
 <body>
-    <ul class="nav justify-content-center bg-dark">
+    <ul class="nav justify-content-center ">
         <li class="nav-item">
           <a class="nav-link active" href="#">Discover</a>
         </li>
@@ -28,7 +28,7 @@
       
     <div class="container m-auto search-container">
 
-        <div class="search-box mt-4">
+        <div class="search-box mt-4 text-center">
             <input class="search-input" type="text">
             <button class="search-btn">Search a movie bro</button>
         </div>
@@ -47,7 +47,6 @@
        
     </div>
 
-<button class="install">INSTALL APP</button>
 
 
     <div class="results">
@@ -58,7 +57,11 @@
     </div>
 
 
-
+<div class="position-fixed bg-white rounded-circle install-container d-flex">
+    <button class="install rounded-circle border-0">
+    <img src="img/install.png" class="d-block m-auto w-50" alt="install icon">
+</button>
+</div>
 
     <script src="app.js"> </script>
     <script src="js/register-sw.js"></script>
